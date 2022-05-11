@@ -10,14 +10,15 @@ public:
             for (int j=0;j<m;j++)
             {
                 if (i==0 && j==0)
-                    continue;
-                dp[i][j]=grid[i][j];
-                int add=1e9;
-                if (i-1>=0)
-                    add=min(add,dp[i-1][j]);
-                if (j-1>=0)
-                    add=min(add,dp[i][j-1]);
-                dp[i][j]+=add;
+                    dp[i][j]=grid[i][j];
+                else
+                {
+                    dp[i][j]=1e9;
+                    if (i-1>=0)
+                        dp[i][j]=min(dp[i][j],grid[i][j]+dp[i-1][j]);
+                    if (j-1>=0)
+                        dp[i][j]=min(dp[i][j],grid[i][j]+dp[i][j-1]);
+                }
             }
         }
         return dp[n-1][m-1];
